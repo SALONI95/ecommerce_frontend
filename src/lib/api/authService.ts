@@ -2,7 +2,10 @@ import api from "./api";
 
 class AuthService {
   login = async (credentials: { email: string; password: string }) => {
-    const { data } = await api.post("auth/login", { ...credentials });
+    const { data } = await api.post("auth/login", {
+      ...credentials,
+      role: "USER",
+    });
     return data;
   };
 
@@ -10,8 +13,9 @@ class AuthService {
     fullname: string;
     email: string;
     password: string;
+    mobileNo: number;
   }) => {
-    return api.post("auth/signup", { ...data });
+    return api.post("auth/signup", { ...data, role: "USER" });
   };
 
   emailSend = async (email: { email: string }) => {

@@ -9,7 +9,7 @@ import { Products } from "../pages/Products";
 import { ProductDetails } from "../pages/ProductDetails";
 import { ShowWishlist } from "../pages/showWishlist";
 import ShowCart from "../pages/showCart";
-// import ProtectedRoute from "./protectedRoute";
+import ProtectedRoute from "./protectedRoute";
 
 const routes = createBrowserRouter([
   {
@@ -45,10 +45,10 @@ const routes = createBrowserRouter([
       {
         path: "/wishlist",
         element: (
-          <ShowWishlist />
-          // <ProtectedRoute>
-          //   <ShowWishlist />
-          // </ProtectedRoute>
+          // <ShowWishlist />
+          <ProtectedRoute>
+            <ShowWishlist />
+          </ProtectedRoute>
         ),
       },
       {

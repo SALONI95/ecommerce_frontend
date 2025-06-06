@@ -2,10 +2,10 @@ export type IUser = {
   _id: string;
   email: string;
   fullname: string;
-  wishlist: {
-    _id: string;
-    products: Array<string> | undefined;
-  };
+  createdAt: string;
+  mobileNo: string;
+  roles: string[];
+  updatedAt: string;
 };
 
 export type IProducts = {

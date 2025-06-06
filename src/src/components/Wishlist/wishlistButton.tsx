@@ -5,28 +5,32 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "@/src/store/slices/authSlice";
+import { IProducts } from "@/types/types";
+
 import { Heart, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function WishlistButton(props: any) {
-  const productId = props.productId;
+type WishlistButtonProps = {
+  product: IProducts;
+};
+
+export function WishlistButton(props: WishlistButtonProps) {
+  const product = props.product;
   const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const authState = useAppSelector((state) => state.auth);
+  const wishlist = useAppSelector((state) => state.auth.wishlist?.items);
+  // const wishlist = authState.wishlist?.items;
   const userId = authState.user?._id;
-  const wishlist = authState.user?.wishlist?.products;
   const loading = authState.loading;
   const dispatch = useAppDispatch();
-  // const [optimisticFavorite, setOptimisticFavorite] = useOptimistic(
-  //   isFavorite,
-  //   (state) => !state
-  // );
 
   useEffect(() => {
     if (!loading) {
-      if (wishlist?.find((product) => product === productId)) {
+      // console.log("wishlist", wishlist);
+      if (wishlist?.find((item) => item._id === product._id)) {
         setIsFavorite(true);
       }
     }
@@ -41,23 +45,15 @@ export function WishlistButton(props: any) {
     setIsLoading(true);
     // setOptimisticFavorite(!isFavorite);
     if (!isFavorite) {
-      const res = await wishlistService.addToWishlist(userId, productId);
+      const res = await wishlistService.addToWishlist(userId, product._id);
       if (res?.success) {
-        dispatch(
-          addToWishlist({
-            productId,
-          })
-        );
+        dispatch(addToWishlist(product));
         setIsFavorite(true);
       }
     } else {
-      const res = await wishlistService.removeFromWishlist(userId, productId);
+      const res = await wishlistService.removeFromWishlist(userId, product._id);
       if (res?.success) {
-        dispatch(
-          removeFromWishlist({
-            productId,
-          })
-        );
+        dispatch(removeFromWishlist(product._id));
         setIsFavorite(false);
       }
     }

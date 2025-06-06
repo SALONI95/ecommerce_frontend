@@ -25,16 +25,21 @@ export function ProductCard({ product }: any) {
       </div>
       <div className="m-3">
         <h3 className="text-lg font-bold">{product.title}</h3>
-        <p className="text-sm text-gray-600">{product.new_price}</p>
-        <p className="text-sm text-gray-600">{product.category.categoryName}</p>
-        <p className="text-sm text-gray-600">{product.type.typeName}</p>
+        <p className="text-sm line-through text-gray-600">
+          ${product.old_price}
+        </p>
+        <p className="text-sm text-gray-600">${product.new_price}</p>
+        <p className="text-sm text-gray-600">{product.type?.typeName}</p>
+        <p className="text-sm text-gray-600">
+          {product.category?.categoryName}
+        </p>
       </div>
       <div className="flex space-x-4">
         <AddToCartButton productId={product._id} />
         {/* <Button>
           Add to Cart
         </Button> */}
-        <WishlistButton productId={product._id} />
+        <WishlistButton product={product} />
         {/* <Button
           variant="outline"
           className="aspect-square p-2"

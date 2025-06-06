@@ -5,29 +5,38 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-square">
             <img
-              src="/placeholder.svg?height=600&width=600"
+              src="./src/assets/hero2.jpg"
               alt="Jewelry craftsmanship"
               className="object-cover w-full h-full"
             />
           </div>
           <div className="space-y-6 max-w-lg">
-            <h2 className="text-sm tracking-wider mb-4">LOOMINA ABOUT - BETTER BY DESIGN</h2>
+            <h2 className="text-sm tracking-wider mb-4">
+              LOOMINA ABOUT - BETTER BY DESIGN
+            </h2>
             <p className="text-gray-300">
-              Loomina creates handcrafted, handmade jewelry with your happiness in mind, conscientiously.
+              Loomina creates handcrafted, handmade jewelry with your happiness
+              in mind, conscientiously.
             </p>
             <p className="text-gray-300">
-              We believe that luxury and customer satisfaction can coexist which is why our skilled artisans use only the finest, ethically sourced 18-carat diamonds, gemstones, and the soft gold to produce our signature pieces.
+              We believe that luxury and customer satisfaction can coexist which
+              is why our skilled artisans use only the finest, ethically sourced
+              18-carat diamonds, gemstones, and the soft gold to produce our
+              signature pieces.
             </p>
             <p className="text-gray-300">
-              By committing to these sustainable and traceable practices, we aim to set standards of conscious design, crafting, and living.
+              By committing to these sustainable and traceable practices, we aim
+              to set standards of conscious design, crafting, and living.
             </p>
-            <a href="/collections" className="inline-block text-white hover:text-gray-300 mt-4">
+            <a
+              href="/collections"
+              className="inline-block text-white hover:text-gray-300 mt-4"
+            >
               View collections →
             </a>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

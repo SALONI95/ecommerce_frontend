@@ -1,6 +1,6 @@
-import { IUser } from "@/types/types";
+import { IProducts, IUser } from "@/types/types";
 import { getTokenFromLocalStorage } from "@/lib/api/api";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authService } from "@/lib/api/authService";
 const token = getTokenFromLocalStorage();
 // let user: IUser | null;
@@ -25,13 +25,28 @@ export const getUserData = createAsyncThunk(
     }
   }
 );
-
+type Item = {
+  _id: string;
+  title: string;
+  images: string[];
+  new_price: number;
+  old_price: number;
+};
 type InitialState = {
   user: IUser | null;
   token: string | null;
   loading: boolean;
   error: any; //string | null;
   isLoggedIn: boolean;
+  wishlist: {
+    _id: string | null;
+    items: Item[] | [];
+  };
+};
+
+type Wishlist = {
+  _id: string;
+  items: Item[];
 };
 
 const initialState: InitialState = {
@@ -40,6 +55,10 @@ const initialState: InitialState = {
   loading: true,
   error: null,
   isLoggedIn: getTokenFromLocalStorage() ? true : false,
+  wishlist: {
+    _id: null,
+    items: [],
+  },
 };
 
 export const authSlice = createSlice({
@@ -55,6 +74,8 @@ export const authSlice = createSlice({
       state.loading = false;
       state.isLoggedIn = true;
       state.error = null;
+      state.wishlist._id = action.payload.wishlist?._id || null;
+      state.wishlist.items = action.payload.wishlist?.items || [];
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -64,21 +85,39 @@ export const authSlice = createSlice({
       state.user = null;
       state.isLoggedIn = false;
       state.token = null;
+      state.wishlist._id = null;
+      state.wishlist.items = [];
     },
-    addToWishlist: (state, action) => {
-      state.user?.wishlist.products?.push(action.payload.productId);
+    setWishlist: (state, action: PayloadAction<Wishlist>) => {
+      if (action.payload) {
+        state.wishlist._id = action.payload._id;
+        state.wishlist.items = action.payload.items;
+        // state.wishlist.items.push(action.payload.items);
+      }
       return state;
     },
-    removeFromWishlist: (state, action) => {
-      const products = state.user?.wishlist?.products?.filter(
-        (item) => item !== action.payload.productId
+    addToWishlist: (state, action: PayloadAction<Item | IProducts>) => {
+      const items: Item = {
+        _id: action.payload._id,
+        title: action.payload.title,
+        images: action.payload.images,
+        new_price: action.payload.new_price,
+        old_price: action.payload.old_price,
+      };
+      state.wishlist.items = [...state.wishlist.items, items];
+      // state.wishlist?.items?.push(action.payload);
+      return state;
+    },
+    removeFromWishlist: (state, action: PayloadAction<string>) => {
+      state.wishlist.items = state.wishlist.items.filter(
+        (item) => item._id !== action.payload
       );
-      if (state.user) {
-        if (state.user.wishlist) {
-          state.user.wishlist.products = products;
-        }
-      }
-
+      // const products = state.wishlist.items?.filter(
+      //   (item) => item._id !== action.payload
+      // );
+      // if (state.wishlist && products) {
+      //   state.wishlist.items = products;
+      // }
       return state;
     },
   },
@@ -93,6 +132,8 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
         state.loading = false;
         state.error = null;
+        state.wishlist._id = action.payload.wishlist?._id || null;
+        state.wishlist.items = action.payload.wishlist?.items || [];
       })
       .addCase(getUserData.rejected, (state, action) => {
         state.isLoggedIn = false;
@@ -112,3 +153,5 @@ export const {
   removeFromWishlist,
 } = authSlice.actions;
 export default authSlice.reducer;
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2Fsb25pIEdvd2FkaWEiLCJlbWFpbCI6InNhbG9uaWdvd2FkaWFAZ21haWwuY29tIiwiZGF0ZSI6IjIwMjUtMDYtMDMgMTE6MTg6NTQifQ.Wy89w8u6ameBuokykTf2fRQQ6pQczPmUT0_LnSgIsGo

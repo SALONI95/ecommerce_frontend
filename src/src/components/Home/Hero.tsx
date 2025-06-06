@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
@@ -10,7 +10,8 @@ export function Hero() {
               WELCOME TO JEWELRY WORLD
             </h1>
             <p className="text-gray-600 max-w-md">
-              Our exquisite creation, sparking from timeless jewelry collection that big brands having a fascinating message of love.
+              Our exquisite creation, sparking from timeless jewelry collection
+              that big brands having a fascinating message of love.
             </p>
             <Button className="bg-black text-white hover:bg-black/90 rounded-none px-8">
               Shop Now
@@ -18,7 +19,7 @@ export function Hero() {
           </div>
           <div className="relative aspect-square">
             <img
-              src="/placeholder.svg?height=600&width=600"
+              src="./src/assets/hero.jpg"
               alt="Jewelry model"
               className="object-cover w-full h-full"
             />
@@ -26,6 +27,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

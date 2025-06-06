@@ -15,6 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
+  const [mobileNo, setMobileNo] = useState(0);
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
 
@@ -29,13 +30,8 @@ export default function Login() {
     console.log(data);
     dispatch(
       setUserloggedIn({
-        user: {
-          _id: data.loggedInUser._id,
-          email: data.loggedInUser.email,
-          fullname: data.loggedInUser.fullname,
-          wishlist: data.wishlist,
-        },
-
+        user: data.loggedInUser,
+        wishlist: data.wishlist,
         token: data.accessToken,
       })
     );
@@ -53,7 +49,12 @@ export default function Login() {
         navigate("/");
       }
     } else {
-      const res = await authService.signup({ fullname, email, password });
+      const res = await authService.signup({
+        fullname,
+        email,
+        password,
+        mobileNo,
+      });
 
       if (res.data.success) {
         updateStore(res.data.data);
@@ -77,16 +78,28 @@ export default function Login() {
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {!isLogin && (
-          <div>
-            <Label htmlFor="fullname">Fullname</Label>
-            <Input
-              id="name"
-              type="text"
-              value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
-              required
-            />
-          </div>
+          <>
+            <div>
+              <Label htmlFor="fullname">Fullname</Label>
+              <Input
+                id="name"
+                type="text"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="mobileNo">Mobile No.</Label>
+              <Input
+                id="mobileNo"
+                type="number"
+                value={mobileNo}
+                onChange={(e) => setMobileNo(Number(e.target.value))}
+                required
+              />
+            </div>
+          </>
         )}
         <div>
           <Label htmlFor="email">Email</Label>
@@ -98,6 +111,16 @@ export default function Login() {
             required
           />
         </div>
+        {/* <div>
+          <Label htmlFor="mobileNo">Mobile No.</Label>
+          <Input
+            id="mobileNo"
+            type="number"
+            value={mobileNo}
+            onChange={(e) => setMobileNo(Number(e.target.value))}
+            required
+          />
+        </div> */}
         <div>
           <Label htmlFor="password">Password</Label>
           <Input
