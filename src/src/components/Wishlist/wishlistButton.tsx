@@ -20,11 +20,16 @@ export function WishlistButton(props: WishlistButtonProps) {
   const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const authState = useAppSelector((state) => state.auth);
-  const wishlist = useAppSelector((state) => state.auth.wishlist?.items);
+  // const authState = useAppSelector((state) => state.auth);
+  const { wishlist, userId, loading } = useAppSelector((state) => ({
+    wishlist: state.auth.wishlist?.items,
+    userId: state.auth.user?._id,
+    // isLoggedIn: state.auth.isLoggedIn,
+    loading: state.auth.loading,
+  }));
   // const wishlist = authState.wishlist?.items;
-  const userId = authState.user?._id;
-  const loading = authState.loading;
+  // const userId = authState.user?._id;
+  // const loading = authState.loading;
   const dispatch = useAppDispatch();
 
   useEffect(() => {

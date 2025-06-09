@@ -54,10 +54,9 @@ const routes = createBrowserRouter([
       {
         path: "/cart",
         element: (
-          <ShowCart />
-          // <ProtectedRoute>
-          //   <ShowWishlist />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <ShowCart />
+          </ProtectedRoute>
         ),
       },
       {

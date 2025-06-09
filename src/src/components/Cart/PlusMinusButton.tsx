@@ -5,7 +5,6 @@ import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 
 export function PlusMinusButton(props: any) {
-  console.log("props", props.quantity);
   const { user } = useAppSelector((state) => state.auth);
   const productId = props.productId;
   const userId = user?._id;

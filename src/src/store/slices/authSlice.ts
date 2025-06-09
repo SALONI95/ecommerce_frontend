@@ -54,7 +54,7 @@ const initialState: InitialState = {
   token: token || null,
   loading: true,
   error: null,
-  isLoggedIn: getTokenFromLocalStorage() ? true : false,
+  isLoggedIn: false,
   wishlist: {
     _id: null,
     items: [],

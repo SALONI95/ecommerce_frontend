@@ -55,12 +55,24 @@ export async function PaymentOrder(cart: any, userId: any) {
   console.log(paymentObject.get());
   return paymentObject.open();
 }
+// type CartItems = {
+//   product:Partial<IProducts[]>,
+//   quantity:number
+// }
+
+type CartResponse = {
+  amount: number;
+  cartItems: any[]; //CartItems[]
+};
 
 const ShowCart = () => {
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?._id;
-  const [cart, setCart] = useState<any>();
-  const [cartList, setCartList] = useState<any[]>([]);
+  const [cart, setCart] = useState<CartResponse>({
+    cartItems: [],
+    amount: 0,
+  });
+  console.log(cart);
   const [cartLoading, setCartLoading] = useState<boolean>(true);
   const handleCheckout = async (e: any) => {
     e.preventDefault();
@@ -73,7 +85,12 @@ const ShowCart = () => {
   const removeitem = async (productId: string) => {
     const result = await cartService.removeFromCart({ userId, productId });
     if (result.success) {
-      setCartList(cartList.filter((item) => item.product._id !== productId));
+      setCart({
+        ...cart,
+        cartItems: cart.cartItems.filter(
+          (item) => item.product._id !== productId
+        ),
+      });
     }
 
     console.log(result);
@@ -82,11 +99,7 @@ const ShowCart = () => {
   const getCart = async (userId: string) => {
     const cart = await cartService.getCartList(userId);
     console.log(cart);
-    setCart(cart);
-    console.log(cartList);
-    if (cart) {
-      setCartList(cart?.items);
-    }
+    setCart({ ...cart, cartItems: cart.cartItems?.items, amount: cart.amount });
     setCartLoading(false);
   };
   useEffect(() => {
@@ -111,11 +124,11 @@ const ShowCart = () => {
           </div>
         ) : (
           <>
-            {cartList?.length > 0 ? (
+            {cart.cartItems?.length > 0 ? (
               <div className="space-y-6">
-                {cartList?.map((item) => (
+                {cart.cartItems?.map((item) => (
                   <div
-                    key={item.product._id}
+                    key={item.product?._id}
                     className="flex items-center space-x-4 bg-white p-4 rounded-lg"
                   >
                     <div className="relative w-20 h-20">
@@ -126,7 +139,7 @@ const ShowCart = () => {
                         {item.product.title}
                       </h2>
                       <p className="text-gray-600">
-                        ${item.price.toLocaleString()}
+                        ${item.product.new_price.toLocaleString()}
                       </p>
                       <PlusMinusButton
                         productId={item.product._id}
