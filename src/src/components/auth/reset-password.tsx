@@ -5,10 +5,11 @@ import { authService } from "@/lib/api/authService";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 const ResetPassword = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [token, setToken] = useState(searchParams.get("token"));
+  const token = searchParams.get("token");
+  // const [token, setToken] = useState(searchParams.get("token"));
   // const token = searchParams.get("token");
   console.log(decodeURIComponent(token as string));
 
