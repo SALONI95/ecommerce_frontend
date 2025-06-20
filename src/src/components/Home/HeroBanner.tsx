@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export function HeroBanner() {
@@ -9,14 +8,15 @@ export function HeroBanner() {
 
   return (
     <div className="relative w-full h-[600px] bg-gray-50">
-      <Image
+      <img src="src/assets/hero2.jpg" />
+      {/* <Image
         src="/placeholder.svg?height=600&width=1200"
         alt="Blooming Summer Collection"
         width={1200}
         height={600}
         className="w-full h-full object-cover"
         priority
-      />
+      /> */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
         <h2 className="text-4xl md:text-5xl font-light tracking-wider text-gray-800 mb-2">
           BLOOMING SUMMER
