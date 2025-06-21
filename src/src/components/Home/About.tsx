@@ -1,3 +1,4 @@
+import image from "../../../assets/hero2.jpg";
 export function About() {
   return (
     <section className="bg-[#2C2C2C] text-white py-16">
@@ -5,7 +6,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-square">
             <img
-              src="./src/assets/hero2.jpg"
+              src={image}
               alt="Jewelry craftsmanship"
               className="object-cover w-full h-full"
             />

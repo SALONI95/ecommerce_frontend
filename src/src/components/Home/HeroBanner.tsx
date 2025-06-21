@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import image from "../../../assets/hero2.jpg";
 
 export function HeroBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
     <div className="relative w-full h-[600px] bg-gray-50">
-      <img src="src/assets/hero2.jpg" />
+      <img src={image} />
       {/* <Image
         src="/placeholder.svg?height=600&width=1200"
         alt="Blooming Summer Collection"
