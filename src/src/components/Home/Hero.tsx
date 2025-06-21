@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-
+import image from "../../../assets/hero.jpg";
 export function Hero() {
   return (
     <section className="pt-16 bg-[#f5f0eb]">
@@ -19,7 +19,7 @@ export function Hero() {
           </div>
           <div className="relative aspect-square">
             <img
-              src="./src/assets/hero.jpg"
+              src={image}
               alt="Jewelry model"
               className="object-cover w-full h-full"
             />

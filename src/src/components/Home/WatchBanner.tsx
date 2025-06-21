@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
-
+import image from "../../../assets/hero2.jpg";
 export function WatchBanner() {
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="grid md:grid-cols-2 gap-8 items-center bg-gray-50">
         <div className="aspect-square relative">
-          <img src="src/assets/hero2.jpg" />
+          <img src={image} />
           {/* <Image
             src="/placeholder.svg?height=600&width=600"
             alt="Watch Collection"
