@@ -1,6 +1,7 @@
 "use client";
 
 import { Outlet } from "react-router-dom";
+import image from "../../../assets/hero2.jpg";
 
 export default function AuthMain() {
   return (
@@ -10,7 +11,7 @@ export default function AuthMain() {
         <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-5rem)]">
           <div className="hidden md:block relative aspect-square">
             <img
-              src="/placeholder.svg?height=600&width=600"
+              src={image}
               alt="Elegant jewelry"
               className="object-cover rounded-lg"
             />
